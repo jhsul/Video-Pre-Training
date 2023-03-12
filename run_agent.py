@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 import pickle
+import gym
 
 from minerl.herobraine.env_specs.human_survival_specs import HumanSurvival
 
@@ -13,7 +14,8 @@ coloredlogs.install(logging.DEBUG)
 
 
 def main(model, weights):
-    env = HumanSurvival(**ENV_KWARGS).make()
+    env = gym.make("MineRLPunchCow-v0")
+    # env = HumanSurvival(**ENV_KWARGS).make()
     print("---Loading model---")
     agent_parameters = pickle.load(open(model, "rb"))
     policy_kwargs = agent_parameters["model"]["args"]["net"]["args"]
@@ -24,12 +26,25 @@ def main(model, weights):
     agent.load_weights(weights)
 
     print("---Launching MineRL enviroment (be patient)---")
-    obs = env.reset()
 
-    while True:
+    env.reset()
+
+    # had to make this change because im pretty sure i fucked the return value of env.reset()
+    # oops
+    # doesnt rly matter tho
+    obs, reward, done, info = env.step(env.action_space.noop())
+
+    print("Starting episode")
+
+    while not done:
         minerl_action = agent.get_action(obs)
+        # THIS IS CRINGE! THIS MUST BE FIXED IN THE FUTURE!
+        minerl_action["ESC"] = 0
+        print(minerl_action)
         obs, reward, done, info = env.step(minerl_action)
         env.render()
+
+    env.close()
 
 
 if __name__ == "__main__":

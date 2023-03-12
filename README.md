@@ -1,14 +1,11 @@
-
-
 # Video-Pre-Training
+
 Video PreTraining (VPT): Learning to Act by Watching Unlabeled Online Videos
 
-
 > :page_facing_up: [Read Paper](https://cdn.openai.com/vpt/Paper.pdf) \
-  :mega: [Blog Post](https://openai.com/blog/vpt) \
-  :space_invader: [MineRL Environment](https://github.com/minerllabs/minerl) (note version 1.0+ required) \
-  :checkered_flag: [MineRL BASALT Competition](https://www.aicrowd.com/challenges/neurips-2022-minerl-basalt-competition)
-
+>  :mega: [Blog Post](https://openai.com/blog/vpt) \
+>  :space_invader: [MineRL Environment](https://github.com/minerllabs/minerl) (note version 1.0+ required) \
+>  :checkered_flag: [MineRL BASALT Competition](https://www.aicrowd.com/challenges/neurips-2022-minerl-basalt-competition)
 
 # Running agent models
 
@@ -28,17 +25,17 @@ python run_agent.py --model [path to .model file] --weights [path to .weight fil
 
 After loading up, you should see a window of the agent playing Minecraft.
 
-
-
 # Agent Model Zoo
+
 Below are the model files and weights files for various pre-trained Minecraft models.
 The 1x, 2x and 3x model files correspond to their respective model weights width.
 
-* [:arrow_down: 1x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-1x.model)
-* [:arrow_down: 2x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/2x.model)
-* [:arrow_down: 3x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-3x.model)
+- [:arrow_down: 1x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-1x.model)
+- [:arrow_down: 2x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/2x.model)
+- [:arrow_down: 3x Model](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-3x.model)
 
 ### Demonstration Only - Behavioral Cloning
+
 These models are trained on video demonstrations of humans playing Minecraft
 using behavioral cloning (BC) and are more general than later models which
 use reinforcement learning (RL) to further optimize the policy.
@@ -48,18 +45,22 @@ model further using either the housebuilding contractor data or early game video
 sub-set. See the paper linked above for more details.
 
 #### Foundational Model :chart_with_upwards_trend:
-  * [:arrow_down: 1x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-1x.weights)
-  * [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-2x.weights)
-  * [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-3x.weights)
+
+- [:arrow_down: 1x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-1x.weights)
+- [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-2x.weights)
+- [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/foundation-model-3x.weights)
 
 #### Fine-Tuned from House :chart_with_upwards_trend:
-  * [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-house-3x.weights)
+
+- [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-house-3x.weights)
 
 #### Fine-Tuned from Early Game :chart_with_upwards_trend:
-  * [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-early-game-2x.weights)
-  * [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-early-game-3x.weights)
+
+- [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-early-game-2x.weights)
+- [:arrow_down: 3x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/bc-early-game-3x.weights)
 
 ### Models With Environment Interactions
+
 These models further refine the above demonstration based models with a reward
 function targeted at obtaining diamond pickaxes. While less general then the behavioral
 cloning models, these models have the benefit of interacting with the environment
@@ -68,26 +69,31 @@ See the paper for more information
 on how they were trained and the exact reward schedule.
 
 #### RL from Foundation :chart_with_upwards_trend:
-  * [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-foundation-2x.weights)
+
+- [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-foundation-2x.weights)
 
 #### RL from House :chart_with_upwards_trend:
-  * [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-house-2x.weights)
+
+- [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-house-2x.weights)
 
 #### RL from Early Game :chart_with_upwards_trend:
-  * [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-early-game-2x.weights)
+
+- [:arrow_down: 2x Width Weights](https://openaipublic.blob.core.windows.net/minecraft-rl/models/rl-from-early-game-2x.weights)
 
 # Running Inverse Dynamics Model (IDM)
 
 IDM aims to predict what actions player is taking in a video recording.
 
 Setup:
-* Install requirements: `pip install -r requirements.txt`
-* Download the IDM model [.model :arrow_down:](https://openaipublic.blob.core.windows.net/minecraft-rl/idm/4x_idm.model) and [.weight :arrow_down:](https://openaipublic.blob.core.windows.net/minecraft-rl/idm/4x_idm.weights) files
-* For demonstration purposes, you can use the contractor recordings shared below to. For this demo we use
+
+- Install requirements: `pip install -r requirements.txt`
+- Download the IDM model [.model :arrow_down:](https://openaipublic.blob.core.windows.net/minecraft-rl/idm/4x_idm.model) and [.weight :arrow_down:](https://openaipublic.blob.core.windows.net/minecraft-rl/idm/4x_idm.weights) files
+- For demonstration purposes, you can use the contractor recordings shared below to. For this demo we use
   [this .mp4](https://openaipublic.blob.core.windows.net/minecraft-rl/data/10.0/cheeky-cornflower-setter-02e496ce4abb-20220421-092639.mp4)
   and [this associated actions file (.jsonl)](https://openaipublic.blob.core.windows.net/minecraft-rl/data/10.0/cheeky-cornflower-setter-02e496ce4abb-20220421-092639.jsonl).
 
 To run the model with above files placed in the root directory of this code:
+
 ```
 python run_inverse_dynamics_model.py -weights 4x_idm.weights --model 4x_idm.model --video-path cheeky-cornflower-setter-02e496ce4abb-20220421-092639.mp4 --jsonl-path cheeky-cornflower-setter-02e496ce4abb-20220421-092639.jsonl
 ```
@@ -101,9 +107,10 @@ Note that `run_inverse_dynamics_model.py` is designed to be a demo of the IDM, n
 **Disclaimer:** This code is a rough demonstration only and not an exact recreation of what original VPT paper did (but it contains some preprocessing steps you want to be aware of)! As such, do not expect replicate the original experiments with this code. This code has been designed to be run-able on consumer hardware (e.g., 8GB of VRAM).
 
 Setup:
-* Install requirements: `pip install -r requirements.txt`
-* Download `.weights` and `.model` file for model you want to fine-tune.
-* Download contractor data (below) and place the `.mp4` and `.jsonl` files to the same directory (e.g., `data`). With default settings, you need at least 12 recordings.
+
+- Install requirements: `pip install -r requirements.txt`
+- Download `.weights` and `.model` file for model you want to fine-tune.
+- Download contractor data (below) and place the `.mp4` and `.jsonl` files to the same directory (e.g., `data`). With default settings, you need at least 12 recordings.
 
 If you downloaded the "1x Width" models and placed some data under `data` directory, you can perform finetuning with
 
@@ -114,12 +121,14 @@ python behavioural_cloning.py --data-dir data --in-model foundation-model-1x.mod
 You can then use `finetuned-1x.weights` when running the agent. You can change the training settings at the top of `behavioural_cloning.py`.
 
 Major limitations:
+
 - Only trains single step at the time, i.e., errors are not propagated through timesteps.
 - Computes gradients one sample at a time to keep memory use low, but also slows down the code.
 
 # Contractor Demonstrations
 
 ### Versions
+
 Over the course of the project we requested various demonstrations from contractors
 which we release as index files below. In general, major recorder versions change for a new
 prompt or recording feature while bug-fixes were represented as minor version changes.
@@ -133,39 +142,43 @@ version where the task changed significantly.
   <details>
   <summary>Initial Prompt</summary>
 
-  We are collecting data for training AI models in Minecraft. You'll need to install java, download the modified version of minecraft (that collects and uploads your play data), and play minecraft survival mode! Paid per hour of gameplay. Prior experience in minecraft not. necessary. We do not collect any data that is unrelated to minecraft from your computer.
+We are collecting data for training AI models in Minecraft. You'll need to install java, download the modified version of minecraft (that collects and uploads your play data), and play minecraft survival mode! Paid per hour of gameplay. Prior experience in minecraft not. necessary. We do not collect any data that is unrelated to minecraft from your computer.
 
   </details>
 
 The following is a list of the available versions:
 
-* **6.x** Core recorder features subject to change [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_6xx_Jun_29.json)
-  * 6.9 First feature complete recorder version
-  * 6.10 Fixes mouse scaling on Mac when gui is open
-  * 6.11 Tracks the hotbar slot
-  * 6.13 Sprinting, swap-hands, ... (see commits below)
+- **6.x** Core recorder features subject to change [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_6xx_Jun_29.json)
+
+  - 6.9 First feature complete recorder version
+  - 6.10 Fixes mouse scaling on Mac when gui is open
+  - 6.11 Tracks the hotbar slot
+  - 6.13 Sprinting, swap-hands, ... (see commits below)
     <details>
     <summary>Commits</summary>
 
-    * improve replays that are cut in the middle of gui; working on riding boats / replays cut in the middle of a run
-    * improve replays by adding dwheel action etc, also, loosen up replay tolerances
-    * opencv version bump
-    * add swap hands, and recording of the step timestamp
-    * implement replaying from running and sprinting and tests
-    * do not record sprinting (can use stats for that)
-    * check for mouse button number, ignore >2
-    * handle the errors when mouse / keyboard are recorded as null
+    - improve replays that are cut in the middle of gui; working on riding boats / replays cut in the middle of a run
+    - improve replays by adding dwheel action etc, also, loosen up replay tolerances
+    - opencv version bump
+    - add swap hands, and recording of the step timestamp
+    - implement replaying from running and sprinting and tests
+    - do not record sprinting (can use stats for that)
+    - check for mouse button number, ignore >2
+    - handle the errors when mouse / keyboard are recorded as null
 
     </details>
-* **7.x** Prompt changes [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_7xx_Apr_6.json)
-  * 7.6 Bump version for internal tracking
+
+- **7.x** Prompt changes [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_7xx_Apr_6.json)
+
+  - 7.6 Bump version for internal tracking
     <details>
     <summary>Additional ask to contractors</summary>
 
     Right now, early game data is especially valuable to us. As such, we request that at least half of the data you upload is from the first 30 minutes of the game. This means that, for every hour of gameplay you spend in an older world, we ask you to play two sessions in which you create a new world and play for 30 minutes. You can play for longer in these worlds, but only the first 30 minutes counts as early game data.
 
     </details>
-* **8.x** :clipboard: House Building from Scratch Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_8xx_Jun_29.json)
+
+- **8.x** :clipboard: House Building from Scratch Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_8xx_Jun_29.json)
   <details>
   <summary>Changes and Prompt</summary>
 
@@ -190,27 +203,30 @@ The following is a list of the available versions:
   Stone tools are ok but I think you may run-out of time
 
   Changes:
-    * Timer ends episode after 10 realtime minutes
-    * Worlds are named: `"build-house-15-min-" + Math.abs(random.nextInt());`
+
+  - Timer ends episode after 10 realtime minutes
+  - Worlds are named: `"build-house-15-min-" + Math.abs(random.nextInt());`
 
   </details>
 
-  * Note this version introduces 10-minute timer that ends the episode. It
-  cut experiments short occasionally and was fixed in 9.1
-  * 8.0 Simple House
-  * 8.2 Update upload script
-* **9.x** :clipboard: House Building from Random Starting Materials Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_9xx_Jun_29.json)
+  - Note this version introduces 10-minute timer that ends the episode. It
+    cut experiments short occasionally and was fixed in 9.1
+  - 8.0 Simple House
+  - 8.2 Update upload script
+
+- **9.x** :clipboard: House Building from Random Starting Materials Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_9xx_Jun_29.json)
     <details>
     <summary>Changes and Prompt</summary>
 
-    You now will have 10 minutes to use the provided resources to build your house / home / or structure. In this version, the experiment will time out after 10 minutes if you are not complete so don't be alarmed if that happens, it is intentional.
+  You now will have 10 minutes to use the provided resources to build your house / home / or structure. In this version, the experiment will time out after 10 minutes if you are not complete so don't be alarmed if that happens, it is intentional.
 
-    No need to use up all the resources! It's ok to collect a few things but spend the majority of the time placing blocks (the act of placing seems to be harder to learn)
+  No need to use up all the resources! It's ok to collect a few things but spend the majority of the time placing blocks (the act of placing seems to be harder to learn)
 
-    Changes:
-    * Worlds are named: `"design-house-10-min-" + Math.abs(random.nextInt());`
-    * Starting inventory given by code below
-    </details>
+  Changes:
+
+  - Worlds are named: `"design-house-10-min-" + Math.abs(random.nextInt());`
+  - Starting inventory given by code below
+  </details>
 
     <details>
     <summary>Random Starting Inventory Code</summary>
@@ -278,9 +294,10 @@ The following is a list of the available versions:
 
     </details>
 
-     * 9.0 First version
-     * 9.1 Fixed timer bug
-* **10.0** :clipboard: Obtain Diamond Pickaxe Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_10xx_Jun_29.json)
+  - 9.0 First version
+  - 9.1 Fixed timer bug
+
+- **10.0** :clipboard: Obtain Diamond Pickaxe Task [:arrow_down: index](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/all_10xx_Jun_29.json)
   <details>
   <summary>Changes and Prompt</summary>
   Prompt:
@@ -289,12 +306,12 @@ The following is a list of the available versions:
   If 20 min is not enough that is OK. It will happen on some seeds because of bad luck. Please do not use glitches to find the diamonds.
 
   Changes:
-  * change to 20 minute time limit
-  * _don't count gui time as part of the time limit_
-  * World are named `"collect-diamond-pickaxe-15min-" + Math.abs(random.nextInt());`
+
+  - change to 20 minute time limit
+  - _don't count gui time as part of the time limit_
+  - World are named `"collect-diamond-pickaxe-15min-" + Math.abs(random.nextInt());`
 
   </details>
-
 
 Sometimes we asked the contractors to signify other tasks besides changing the version. This
 primarily occurred in versions 6 and 7 as 8, 9 and 10 are all task specific.
@@ -306,11 +323,11 @@ However, it is preferable that you start a new world though, and use only the to
 </details>
 
 ### Environment
+
 We restrict the contractors to playing Minecraft in windowed mode at 720p which we downsample at 20hz to 360p
 to minimize space. We also disabled the options screen to prevent the contractor from
 changing things such as brightness, or rendering options. We ask contractors not to press keys
 such as f3 which shows a debug overlay, however some contractors may still do this.
-
 
 ### Data format
 
@@ -322,6 +339,7 @@ uploading, the corresponding relative path is not included in the index therefor
 there may be missing chunks from otherwise continuous demonstrations.
 
 Index files are provided for each version as a json file:
+
 ```json
 {
   "basedir": "https://openaipublic.blob.core.windows.net/data/",
@@ -331,22 +349,26 @@ Index files are provided for each version as a json file:
   ]
 }
 ```
+
 Relative paths follow the following format:
-* `<recorder-version>/<contractor-alias>-<session-id>-<date>-<time>`
+
+- `<recorder-version>/<contractor-alias>-<session-id>-<date>-<time>`
 
 > Note that due to network errors, some segments may be missing from otherwise
-continuous demonstrations.
+> continuous demonstrations.
 
 Your data loader can then find following files:
-* Video observation: `<basedir>/<relpath>.mp4`
-* Action file: `<basedir>/<relpath>.jsonl`
-* Options file: `<basedir>/<relpath>-options.json`
-* Checkpoint save file: `<basedir>/<relpath>.zip`
 
-The action file is **not**  a valid json object: each line in
+- Video observation: `<basedir>/<relpath>.mp4`
+- Action file: `<basedir>/<relpath>.jsonl`
+- Options file: `<basedir>/<relpath>-options.json`
+- Checkpoint save file: `<basedir>/<relpath>.zip`
+
+The action file is **not** a valid json object: each line in
 action file is an individual action dictionary.
 
 For v7.x, the actions are in form
+
 ```json
 {
   "mouse": {
@@ -361,10 +383,7 @@ For v7.x, the actions are in form
     "newButtons": []
   },
   "keyboard": {
-    "keys": [
-      "key.keyboard.a",
-      "key.keyboard.s"
-    ],
+    "keys": ["key.keyboard.a", "key.keyboard.s"],
     "newKeys": [],
     "chars": ""
   },
@@ -417,8 +436,9 @@ We also collected a dataset of demonstrations for the [MineRL BASALT 2022](https
 
 **Note**: To avoid confusion with the competition rules, the action files (.jsonl) have been stripped of information that is not allowed in the competition. We will upload unmodified dataset after the competition ends.
 
-* **FindCave** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/find-cave-Jul-28.json)
-  * <details>
+- **FindCave** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/find-cave-Jul-28.json)
+
+  - <details>
     <summary>Prompt to contractors (click to show)</summary>
 
     ```
@@ -428,9 +448,12 @@ We also collected a dataset of demonstrations for the [MineRL BASALT 2022](https
     Timelimit: 3 minutes.
     Example recordings: https://www.youtube.com/watch?v=TclP_ozH-eg
     ```
+
     </details>
-* **MakeWaterfall** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/waterfall-Jul-28.json)
-  * <details>
+
+- **MakeWaterfall** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/waterfall-Jul-28.json)
+
+  - <details>
     <summary>Prompt to contractors (click to show)</summary>
 
     ```
@@ -439,9 +462,12 @@ We also collected a dataset of demonstrations for the [MineRL BASALT 2022](https
     Timelimit: 5 minutes.
     Example recordings: https://youtu.be/NONcbS85NLA
     ```
+
     </details>
-* **MakeVillageAnimalPen** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/pen-animals-Jul-28.json)
-  * <details>
+
+- **MakeVillageAnimalPen** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/pen-animals-Jul-28.json)
+
+  - <details>
     <summary>Prompt to contractors (click to show)</summary>
 
     ```
@@ -455,9 +481,12 @@ We also collected a dataset of demonstrations for the [MineRL BASALT 2022](https
     Timelimit: 5 minutes.
     Example recordings: https://youtu.be/SLO7sep7BO8
     ```
+
     </details>
-* **BuildVillageHouse** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/build-house-Jul-28.json)
-  * <details>
+
+- **BuildVillageHouse** [:arrow_down: index file](https://openaipublic.blob.core.windows.net/minecraft-rl/snapshots/build-house-Jul-28.json)
+
+  - <details>
     <summary>Prompt to contractors (click to show)</summary>
 
     ```
@@ -477,11 +506,11 @@ We also collected a dataset of demonstrations for the [MineRL BASALT 2022](https
     Timelimit: 12 minutes.
     Example recordings: https://youtu.be/WeVqQN96V_g
     ```
+
     </details>
 
-
-
 # Contribution
+
 This was a large effort by a dedicated team at OpenAI:
 [Bowen Baker](https://github.com/bowenbaker),
 [Ilge Akkaya](https://github.com/ilge),
