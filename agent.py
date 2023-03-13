@@ -83,7 +83,7 @@ TARGET_ACTION_SPACE = {
 
 def validate_env(env):
     """Check that the MineRL environment is setup correctly, and raise if not"""
-    print("Skipping action space validation because it doesn't know about chat commands")
+    # print("Skipping action space validation because it doesn't know about chat commands")
     # for key, value in ENV_KWARGS.items():
     #     if key == "frameskip":
     #         continue
