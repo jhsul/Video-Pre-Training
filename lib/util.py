@@ -61,8 +61,10 @@ class FanInInitReLULayer(nn.Module):
         elif layer_norm:
             self.norm = nn.LayerNorm(inchan)
 
-        layer = dict(conv=nn.Conv2d, conv3d=nn.Conv3d, linear=nn.Linear)[layer_type]
-        self.layer = layer(inchan, outchan, bias=self.norm is None, *layer_args, **layer_kwargs)
+        layer = dict(conv=nn.Conv2d, conv3d=nn.Conv3d,
+                     linear=nn.Linear)[layer_type]
+        self.layer = layer(
+            inchan, outchan, bias=self.norm is None, *layer_args, **layer_kwargs)
 
         # Init Weights (Fan-In)
         self.layer.weight.data *= init_scale / self.layer.weight.norm(
@@ -173,8 +175,10 @@ class ResidualRecurrentBlock(nn.Module):
         self.pre_r_ln = nn.LayerNorm(hidsize)
         if recurrence_type in ["multi_layer_lstm", "multi_layer_bilstm"]:
             self.r = nn.LSTM(hidsize, hidsize, batch_first=True)
-            nn.init.normal_(self.r.weight_hh_l0, std=s * (self.r.weight_hh_l0.shape[0] ** -0.5))
-            nn.init.normal_(self.r.weight_ih_l0, std=s * (self.r.weight_ih_l0.shape[0] ** -0.5))
+            nn.init.normal_(self.r.weight_hh_l0, std=s *
+                            (self.r.weight_hh_l0.shape[0] ** -0.5))
+            nn.init.normal_(self.r.weight_ih_l0, std=s *
+                            (self.r.weight_ih_l0.shape[0] ** -0.5))
             self.r.bias_hh_l0.data *= 0
             self.r.bias_ih_l0.data *= 0
         elif recurrence_type == "transformer":
@@ -198,9 +202,11 @@ class ResidualRecurrentBlock(nn.Module):
             x,
             first,
             state,
-            reverse_lstm=self.recurrence_type == "multi_layer_bilstm" and (self.block_number + 1) % 2 == 0,
+            reverse_lstm=self.recurrence_type == "multi_layer_bilstm" and (
+                self.block_number + 1) % 2 == 0,
         )
-        if self.is_residual and "lstm" in self.recurrence_type:  # Transformer already residual.
+        # Transformer already residual.
+        if self.is_residual and "lstm" in self.recurrence_type:
             x = x + residual
         if self.use_pointwise_layer:
             # Residual MLP
@@ -223,7 +229,8 @@ def recurrent_forward(module, x, first, state, reverse_lstm=False):
         x, state_out = module(x, state)
         if reverse_lstm:
             x = th.flip(x, [1])
-        state_out = tree_map(lambda _s: _s.transpose(0, 1), state_out)  # B, NL, H
+        state_out = tree_map(lambda _s: _s.transpose(
+            0, 1), state_out)  # B, NL, H
         return x, state_out
     else:
         return module(x, first, state)
