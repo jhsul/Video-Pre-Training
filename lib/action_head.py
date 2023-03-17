@@ -161,7 +161,8 @@ class CategoricalActionHead(ActionHead):
         if self.linear_layer is not None:
             init.orthogonal_(self.linear_layer.weight, gain=0.01)
             init.constant_(self.linear_layer.bias, 0.0)
-            finit.fan_in_linear(self.linear_layer, scale=0.01)
+            init.fan_in_linear(self.linear_layer, scale=0.01)
+            # finit.fan_in_linear(self.linear_layer, scale=0.01)
 
     def forward(self, input_data: torch.Tensor, mask=None) -> Any:
         if self.linear_layer is not None:
