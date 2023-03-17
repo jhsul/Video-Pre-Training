@@ -162,6 +162,8 @@ class MineRLAgent:
             action = {
                 "buttons": agent_action["buttons"].cpu().numpy(),
                 "camera": agent_action["camera"].cpu().numpy()
+                # "buttons": agent_action["buttons"].cpu().detach().numpy(),
+                # "camera": agent_action["camera"].cpu().detach().numpy()
             }
         minerl_action = self.action_mapper.to_factored(action)
         minerl_action_transformed = self.action_transformer.policy2env(

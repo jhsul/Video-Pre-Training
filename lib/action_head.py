@@ -67,7 +67,8 @@ class DiagGaussianActionHead(ActionHead):
         self.num_dimensions = num_dimensions
 
         self.linear_layer = nn.Linear(input_dim, num_dimensions)
-        self.log_std = nn.Parameter(torch.zeros(num_dimensions), requires_grad=True)
+        self.log_std = nn.Parameter(torch.zeros(
+            num_dimensions), requires_grad=True)
 
     def reset_parameters(self):
         init.orthogonal_(self.linear_layer.weight, gain=0.01)
@@ -128,7 +129,8 @@ class DiagGaussianActionHead(ActionHead):
         std_q = torch.exp(log_std_q)
         std_p = torch.exp(log_std_p)
 
-        kl_div = log_std_p - log_std_q + (std_q ** 2 + (means_q - means_p) ** 2) / (2.0 * std_p ** 2) - 0.5
+        kl_div = log_std_p - log_std_q + \
+            (std_q ** 2 + (means_q - means_p) ** 2) / (2.0 * std_p ** 2) - 0.5
 
         return kl_div.sum(dim=-1, keepdim=True)
 
@@ -147,7 +149,8 @@ class CategoricalActionHead(ActionHead):
         self.temperature = temperature
 
         if builtin_linear_layer:
-            self.linear_layer = nn.Linear(input_dim, np.prod(self.output_shape))
+            self.linear_layer = nn.Linear(
+                input_dim, np.prod(self.output_shape))
         else:
             assert (
                 input_dim == num_actions
@@ -262,14 +265,21 @@ class DictActionHead(nn.ModuleDict):
 
 def make_action_head(ac_space: ValType, pi_out_size: int, temperature: float = 1.0):
     """Helper function to create an action head corresponding to the environment action space"""
+    # print("Making action head")
     if isinstance(ac_space, TensorType):
         if isinstance(ac_space.eltype, Discrete):
+            # print("Discrete action space detected. Using CategoricalActionHead.")
             return CategoricalActionHead(pi_out_size, ac_space.shape, ac_space.eltype.n, temperature=temperature)
         elif isinstance(ac_space.eltype, Real):
             if temperature != 1.0:
-                logging.warning("Non-1 temperature not implemented for DiagGaussianActionHead.")
-            assert len(ac_space.shape) == 1, "Nontrivial shapes not yet implemented."
+                logging.warning(
+                    "Non-1 temperature not implemented for DiagGaussianActionHead.")
+            assert len(
+                ac_space.shape) == 1, "Nontrivial shapes not yet implemented."
+            print("Continuous action space detected. Using DiagGaussianActionHead.")
             return DiagGaussianActionHead(pi_out_size, ac_space.shape[0])
     elif isinstance(ac_space, DictType):
+        # print("Dict action space detected. Using DictActionHead.")
         return DictActionHead({k: make_action_head(v, pi_out_size, temperature) for k, v in ac_space.items()})
-    raise NotImplementedError(f"Action space of type {type(ac_space)} is not supported")
+    raise NotImplementedError(
+        f"Action space of type {type(ac_space)} is not supported")

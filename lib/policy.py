@@ -236,6 +236,7 @@ class MinecraftAgentPolicy(nn.Module):
         self.action_space = action_space
 
         self.value_head = self.make_value_head(self.net.output_latent_size())
+
         self.pi_head = self.make_action_head(
             self.net.output_latent_size(), **pi_head_kwargs)
 
@@ -428,7 +429,7 @@ class InverseActionPolicy(nn.Module):
         pi_out_size = self.net.output_latent_size()
 
         pi_head_kwargs = {} if pi_head_kwargs is None else pi_head_kwargs
-
+        # print("hi")
         self.pi_head = self.make_action_head(
             pi_out_size=pi_out_size, **pi_head_kwargs)
 
